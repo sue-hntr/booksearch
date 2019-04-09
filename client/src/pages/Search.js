@@ -28,7 +28,7 @@ class Search extends Component {
       API.getBooksGoogle(this.state.search)
         .then(res => {
           if (res.data.status === "error") {
-            throw new Error(res.data.message);
+            throw new Error(res.data);
           }
           this.setState({ results: res.data.items[0].volumeInfo.title});
         })

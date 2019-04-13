@@ -3,13 +3,25 @@ import React from "react";
 
 function SearchResults(props) {
   return (
-    <ul className="list-group search-results">
-      {/* {props.results.map(result => (
-        <li key={result} className="list-group-item">
-          <img alt="Dog" src={result} className="img-fluid" />
-        </li>
-      ))} */}
-    </ul>
+
+
+    <div className="card">
+      <img src="" className="card-img-top" alt="..."/>
+      <div className="card-body">
+        <h5 className="card-title">{props.title}</h5>
+        <h5 className="card-title">{props.author}</h5>
+        <p className="card-text">{props.description}</p>
+        <a href="#" onClick={() => {
+          props.saveBook({
+            title: props.title,
+            author: props.author,
+            description: props.description
+          }
+            
+          )
+        }} className="btn btn-primary">Save to database</a>
+      </div>
+  </div>
   );
 }
 

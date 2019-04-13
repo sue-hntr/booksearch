@@ -30,13 +30,20 @@ class Search extends Component {
           if (res.data.status === "error") {
             throw new Error(res.data);
           }
-          this.setState({ results: res.data.items[0].volumeInfo.title});
+          console.log(res.data.items);
+          this.setState({ results: res.data.items});
         })
         .catch(err => this.setState({ error: err.message }));
     };
 
+    saveBook = book => {
+      console.log(book);
+      console.log(`I've been clicked`);
+
+    }
+
     render() {
-      console.log(this.state.results);
+
       return (
         <div>
           <Container style={{ minHeight: "80%" }}>
@@ -45,7 +52,15 @@ class Search extends Component {
               handleFormSubmit={this.handleFormSubmit}
               handleInputChange={this.handleInputChange}
             />
-            <SearchResults results={this.state.results} />
+          {this.state.results.map(result => ( 
+            <SearchResults 
+            saveBook={this.saveBook}
+            title={result.volumeInfo.title}
+            author={result.volumeInfo.authors[0]}
+            description={result.volumeInfo.description}
+            />
+            
+          ))}
           </Container>
         </div>
       );

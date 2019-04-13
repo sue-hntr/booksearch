@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../utils/API";
+import BookDataAxios from "../utils/BookDataAxios";
 import Container from "../components/Container";
 import SearchForm from "../components/SearchForm";
 import SearchResults from "../components/SearchResults";
@@ -8,7 +9,8 @@ class Search extends Component {
     state = {
       search: "",
       results: [],
-      error: ""
+      error: "",
+      bookNow: []
     };
   
     // When the component mounts, get a list of all available base breeds and update this.state.breeds
@@ -37,8 +39,13 @@ class Search extends Component {
     };
 
     saveBook = book => {
-      console.log(book);
+      BookDataAxios.saveBook(book);
+      // this.setState({
+      //   bookNow: "the hobbit"      });
+      // console.log(bookNow);  
       console.log(`I've been clicked`);
+      console.log(this.props);
+      
 
     }
 
@@ -47,7 +54,7 @@ class Search extends Component {
       return (
         <div>
           <Container style={{ minHeight: "80%" }}>
-            <h1 className="text-center">Search for Books</h1>
+            <h1 className="text-center">Search for Books by Title</h1>
             <SearchForm
               handleFormSubmit={this.handleFormSubmit}
               handleInputChange={this.handleInputChange}
@@ -55,6 +62,7 @@ class Search extends Component {
           {this.state.results.map(result => ( 
             <SearchResults 
             saveBook={this.saveBook}
+            key={result.id}
             title={result.volumeInfo.title}
             author={result.volumeInfo.authors[0]}
             description={result.volumeInfo.description}

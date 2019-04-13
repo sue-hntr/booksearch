@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+const axios = require('axios');
 
 const path = require("path");
 const PORT = process.env.PORT || 3001;
@@ -18,7 +19,9 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist");
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/googlebooks", { useNewUrlParser: true })
+.catch( err => console.log(err));
 
 // Send every other request to the React app
 // Define any API routes before this runs
